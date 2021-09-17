@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tunstall Coding</title>
+        <script src="tunstall.js"></script>
+        <style>
+            input{
+                width: 200px;
+                font-size: 20px;
+            }
+            tr, td, th{
+                border: 1px solid;
+            }
+            td{
+                width: 75px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body onload="intialSetup()">
+        <div class="wrapper">
+            <div class="container">
+                <center>
+                    <h1>Tunstall Coding</h1>
+                    <input type="text" id="characters" placeholder="Enter Characters"><br>
+                    <input type="text" id="probabilities" placeholder="Enter Probabilities"><br><br>
+                    <button onclick="encode()">Create</button>
+                    <button onclick="clearSpace()">Next</button>
+                    <br><br>
+                    <div><table id="result"></table></div>
+                </center>
+            </div>
+        </div>
+    </body>
+</html>
