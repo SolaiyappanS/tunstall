@@ -27,14 +27,25 @@
         <div class="wrapper">
             <div class="container">
                 <center>
-                    <br><h1>Tunstall Coding</h1>
-                    <p>Developed by Solaiyappan S and Meenakshi Sundaram S R</p>
-                    <input type="text" id="characters" placeholder="Enter Characters"><br>
-                    <input type="text" id="probabilities" placeholder="Enter Probabilities"><br><br>
-                    <button onclick="encode()">Create</button>
-                    <button onclick="clearSpace()">Next</button>
-                    <br><br>
-                    <div><table id="result"></table></div><br>
+                    <div id="home">
+                        <br><h1>Tunstall Coding</h1>
+                        <p>Developed by Solaiyappan S and Meenakshi Sundaram S R</p>
+                        <input type="text" id="characters" placeholder="Enter Characters"><br>
+                        <input type="text" id="probabilities" placeholder="Enter Probabilities"><br><br>
+                        <button onclick="encode()">Create</button>
+                        <button onclick="clearSpace()">Clear</button>
+                        <button id="nextpage" onclick= "nextpage()">Next</button>
+                        <br><br>
+                        <div><table id="result"></table></div><br>
+                    </div>
+                    <div id="coding">
+                        <br><h1>Tunstall Encoding and Decoding</h1>
+                        <input type="text" id="message" placeholder="Enter the Message"><br><br>
+                        <button onclick="messageToCode()">Get Code</button><br><br>
+                        <input type="text" id="code" placeholder="Enter the Code"><br><br>
+                        <button onclick="codeToMessage()">Get Message</button><br><br>
+                        <button id="homepage" onclick= "homepage()">Home</button>
+                    </div>
                 </center>
             </div>
         </div>

@@ -1,3 +1,7 @@
+var characterArray;
+var probabilityArray;
+var codeArray;
+var bitLen;
 function encode(){
     var characters = document.getElementById("characters").value;
     var probabilities = document.getElementById("probabilities").value;
@@ -5,9 +9,9 @@ function encode(){
         document.getElementById("result").innerHTML="Invalid Input";
         return 0;
     }
-    var characterArray = characters.split(',');
+    characterArray = characters.split(',');
     const fixedCharacterArray = characters.split(',');
-    var probabilityArray = probabilities.split(',');
+    probabilityArray = probabilities.split(',');
     const fixedProbabilityArray = probabilities.split(',');
     if(characterArray.length != probabilityArray.length){
         document.getElementById("result").innerHTML="Invalid Input (Size differs)";
@@ -22,7 +26,7 @@ function encode(){
         return 0;
     }
     var result = "<tr><th colspan=\"3\">Tunstall Code</th></tr><tr><th>Character</th><th>Probability</th><th>Code</th></tr>";
-    const bitLen = fixedCharacterArray.length;
+    bitLen = fixedCharacterArray.length;
 
     while(characterArray.length + bitLen - 1 < Math.pow(2,bitLen)){
         var index = indexOfMax(probabilityArray);
@@ -44,12 +48,62 @@ function encode(){
     }
 
     document.getElementById("result").innerHTML = result;
+    document.getElementById("nextpage").disabled=false;
+
 }
 
 function clearSpace(){
     document.getElementById("characters").value = "";
     document.getElementById("probabilities").value = "";
     document.getElementById("result").innerHTML = "Enter the Characters and their<br>probabilities as comma seperated";
+    document.getElementById("nextpage").disabled=true;
+}
+
+function messageToCode(){
+    var message = document.getElementById("message").value;
+    var result = "";
+    var temp = "";
+    for(var i=0; i<message.length; i++){
+
+        if(characterArray.indexOf(message[i])!=-1)
+            result += printBinary(characterArray.indexOf(message[i]),bitLen);
+        else{
+            temp = message[i];
+            while(characterArray.indexOf(temp)==-1){
+                temp += message[i+1];
+                i++;
+                if(i>=message.length){
+                    document.getElementById("code").value = "invalid message";
+                    return 0;
+                }
+            }
+            result += printBinary(characterArray.indexOf(temp),bitLen);
+        }
+    }
+    document.getElementById("code").value = result;
+}
+
+function codeToMessage(){
+    var code = document.getElementById("code").value;
+    if(code.length%bitLen!=0){
+        document.getElementById("message").value="Invalid Code";
+        return 0;
+    }
+    for(var i=0; i<code.length; i++){
+        if(code[i]!=0 && code[i]!=1){
+            document.getElementById("message").value="Invalid Code";
+            return 0;
+        }
+    }
+    var result = "";
+    for(var i=0; i<code.length/bitLen; i++){
+        result += characterArray[bin2dec(code.substring(i*bitLen,(i*bitLen+bitLen*1)))]
+        if(bin2dec(code.substring(i*bitLen,(i*bitLen+bitLen*1)))>=characterArray.length){
+            document.getElementById("message").value="Invalid Code";
+            return 0;
+        }
+    }
+    document.getElementById("message").value=result;
 }
 
 function indexOfMax(arr) {
@@ -91,10 +145,27 @@ function printBinary(n, bit)
     return result;
 }
 
+function nextpage(){
+    document.getElementById("coding").style.display = "contents";
+    document.getElementById("home").style.display = "none";
+}
+
+function homepage(){
+    document.getElementById("coding").style.display = "none";
+    document.getElementById("home").style.display = "contents";
+}
+
 function intialSetup(){
-    document.getElementById("result").innerHTML="Enter the Characters and their<br>probabilities as comma seperated"
+    document.getElementById("result").innerHTML="Enter the Characters and their<br>probabilities as comma seperated";
+    document.getElementById("nextpage").disabled=true;
+    document.getElementById("coding").style.display = "none";
+    document.getElementById("home").style.display = "contents";
 }
 
 function round(value, decimals) {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
+
+function bin2dec(bin){
+    return parseInt(bin, 2).toString(10);
 }
