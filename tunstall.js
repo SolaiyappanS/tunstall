@@ -23,16 +23,16 @@ function encode(){
         document.getElementById("result").innerHTML="Invalid Input (Size differs)";
         return 0;
     }
+    if(characterArray.length == 1){
+        document.getElementById("result").innerHTML="Invalid Input (Enter more than one value)";
+        return 0;
+    }
     var totalProbability = 0;
     for(var i=0; i<probabilityArray.length; i++){
         totalProbability += probabilityArray[i]*1;
     }
     if(round(totalProbability,5)!=1){
         document.getElementById("result").innerHTML="Invalid Input (Sum of probabilities is not 1)";
-        return 0;
-    }
-    if(characterArray.length == 1){
-        document.getElementById("result").innerHTML="Invalid Input (Enter more than one value)";
         return 0;
     }
     var result = "<tr><th colspan=\"3\">Tunstall Code</th></tr><tr><th>Character</th><th>Probability</th><th>Code</th></tr>";
